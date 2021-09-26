@@ -1,3 +1,12 @@
+/*
+---------------------------------------------------------
+| License: MIT License                                  |
+---------------------------------------------------------
+| This source file contains all the necessary functions |
+| for the insertion sort algorithim                     |
+---------------------------------------------------------
+*/
+
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
