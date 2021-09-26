@@ -1,7 +1,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
-#include "ins_sort.h"
+#include "insertion_sort.h"
 
 /*
  * Swap array[key] and array[key-1] 
@@ -101,7 +101,10 @@ static bool alpha_cmp(const char *assumed_smaller,
 	for (i=0; i<min_len; i++) {
                 if (isalpha(word_to_check[i]) 
 	          && isalpha(assumed_smaller[i])) {
-			return (word_to_check[i] < assumed_smaller[i]);
+                        if (word_to_check[i] < assumed_smaller[i])
+                                return 1;
+                        else if (assumed_smaller[i] < word_to_check[i])
+                                return 0;
                 } else {
                         if (!isalpha(assumed_smaller[i]) 
                           && isalpha(word_to_check[i]))
@@ -111,10 +114,6 @@ static bool alpha_cmp(const char *assumed_smaller,
                                 return 0;
                 }
         }
-	/* 
-         * If haven't returned yet, return 1 if  
-	 * check_len < assumed_len, otherwise return 0 
-         */	
 	return (check_len < assumed_len); 
 }
 
@@ -128,8 +127,21 @@ static void convert_to_lower(char *str)
 }
 
 /*
+ * Make a small letter copy of src to dst. Make sure that 
+ * dst has enough space to hold src
+ */
+static void make_small_copy(const char *src, char *dst)
+{
+        const size_t size = strlen(src) + 1;
+
+        memcpy(dst, src, size);
+        convert_to_lower(dst);
+}
+
+/*
  * An alpha_cmp() wrapper that creates a lower case
- * copy of the assumed_smaller and word_to_check arguments
+ * copy of the assumed_smaller and word_to_check arguments,
+ * then returns the alpha_cmp() value.
  */
 static bool alpha_cmp_lower(const char *assumed_smaller, 
                             const char *word_to_check)
@@ -139,10 +151,8 @@ static bool alpha_cmp_lower(const char *assumed_smaller,
         char assumed_smaller_cp[assumed_smaller_len];
         char word_to_check_cp[word_to_check_len];
 
-        memcpy(assumed_smaller_cp, assumed_smaller, assumed_smaller_len);
-        memcpy(word_to_check_cp, word_to_check, word_to_check_len);
-        convert_to_lower(assumed_smaller_cp);
-        convert_to_lower(word_to_check_cp);
+        make_small_copy(assumed_smaller, assumed_smaller_cp);
+        make_small_copy(word_to_check, word_to_check_cp);
 
         return alpha_cmp(assumed_smaller_cp, word_to_check_cp);
 }
@@ -169,3 +179,17 @@ static void insertion_sort_str_backward(char *array[], unsigned int key)
                         insertion_sort_str_swap(array, key);
 }
 
+void insertion_sort_str(char *array[], const unsigned int size)
+{
+        unsigned int i, key;
+
+        for (i=0, key=1; key<size; i++, key++)
+                if (alpha_cmp_lower(array[i], array[key])) {
+                        insertion_sort_str_swap(array, key);
+                        /* 
+                         * After the previous swap the current key is 
+                         * equal to i since array[key] was moved t array[i] 
+                         */
+                        insertion_sort_str_backward(array, i);
+                }
+}

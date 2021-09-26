@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -march=native -O2 -pipe -fstack-protector-strong -Wextra \
-		 -Wall -Wundef -Wformat=2 -Wstrict-overflow=5 -I$(INCLUDE)
+		 -Wall -Wundef -Wformat=2 -I$(INCLUDE)
 
 DST_DIR = /usr/local/bin
 
@@ -12,4 +12,4 @@ SRCDIR ?= src
 .PHONY: test
 
 test: 
-	gcc $(CFLAGS) src/* test.c
+	$(CC) $(CFLAGS) src/* test.c
