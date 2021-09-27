@@ -202,3 +202,88 @@ void insertion_sort_str(char *array[], const unsigned int size)
                         insertion_sort_str_backward(array, i);
                 }
 }
+
+/*
+ * Swap array[key] and array[key-1] 
+ * (array[key] to array[key-1] and array[key-1] to array[key])
+ */
+static void insertion_sort_uint_swap(unsigned int array[], 
+                                     const unsigned int key) 
+{
+        unsigned int tmp;
+       
+        tmp = array[key];
+        array[key] = array[key-1];
+        array[key-1] = tmp;
+}
+
+static void insertion_sort_uint_backward(unsigned int array[], unsigned int key)
+{
+        long int i = (long int) key - 1;
+
+        for (; i>-1; i--, key--)
+                if (array[key] < array[i])
+                        insertion_sort_uint_swap(array, key);
+}
+
+/*
+ * I decided to enter the arguments type src[] and dst[] like
+ * this and not *src and *dst to avoid confusion for the users
+ */
+void insertion_sort_uint(unsigned int array[], const unsigned int size)
+{
+        unsigned int i, key;
+
+        for (i=0, key=1; key<size; i++, key++)
+                if (array[key] < array[i]) {
+                        insertion_sort_uint_swap(array, key);
+                        /* 
+                         * After the previous swap the current key is 
+                         * equal to i since array[key] was moved t array[i] 
+                         */
+                        insertion_sort_uint_backward(array, i);
+                }
+}
+
+/*
+ * Swap array[key] and array[key-1] 
+ * (array[key] to array[key-1] and array[key-1] to array[key])
+ */
+static void insertion_sort_long_int_swap(long int array[], 
+                                         const unsigned int key) 
+{
+        long int tmp;
+       
+        tmp = array[key];
+        array[key] = array[key-1];
+        array[key-1] = tmp;
+}
+
+static void insertion_sort_long_int_backward(long int array[], 
+                                             unsigned int key)
+{
+        long int i = (long int) key - 1;
+
+        for (; i>-1; i--, key--)
+                if (array[key] < array[i])
+                        insertion_sort_long_int_swap(array, key);
+}
+
+/*
+ * I decided to enter the arguments type src[] and dst[] like
+ * this and not *src and *dst to avoid confusion for the users
+ */
+void insertion_sort_long_int(long int array[], const unsigned int size)
+{
+        unsigned int i, key;
+
+        for (i=0, key=1; key<size; i++, key++)
+                if (array[key] < array[i]) {
+                        insertion_sort_long_int_swap(array, key);
+                        /* 
+                         * After the previous swap the current key is 
+                         * equal to i since array[key] was moved t array[i] 
+                         */
+                        insertion_sort_long_int_backward(array, i);
+                }
+}
