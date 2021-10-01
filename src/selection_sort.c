@@ -8,19 +8,20 @@
 */
 
 #include "selection_sort.h"
+#include <stdio.h>
 
 /*
  * Get the index of the element with the smaller value from
  * array[i] to array[size-1]
  */
-static unsigned int get_min_int_i(int array[], 
+static unsigned int get_min_int_i(const int array[], 
                                   unsigned int i, 
                                   const unsigned int size)
 {
         unsigned int min;
 
-        for (min=i; i<size;)
-                if (array[++i] < array[min])
+        for (min=i++; i<size; i++)
+                if (array[i] < array[min])
                         min = i;
         return min;
 }
@@ -52,14 +53,14 @@ void selection_sort_int(int array[], const unsigned int size)
  * Get the index of the element with the smaller value from
  * array[i] to array[size-1]
  */
-static unsigned int get_min_float_i(float array[], 
+static unsigned int get_min_float_i(const float array[], 
                                     unsigned int i, 
                                     const unsigned int size)
 {
         unsigned int min;
 
-        for (min=i; i<size;)
-                if (array[++i] < array[min])
+        for (min=i++; i<size; i++)
+                if (array[i] < array[min])
                         min = i;
         return min;
 }
