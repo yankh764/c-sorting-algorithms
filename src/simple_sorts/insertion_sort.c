@@ -38,11 +38,11 @@ static void insertion_sort_int_backward(int array[], unsigned int key)
  * I decided to enter the arguments type src[] and dst[] like
  * this and not *src and *dst to avoid confusion for the users
  */
-void insertion_sort_int(int array[], const unsigned int size)
+void insertion_sort_int(int array[], const unsigned int len)
 {
         unsigned int i, key;
 
-        for (i=0, key=1; key<size; i++, key++)
+        for (i=0, key=1; key<len; i++, key++)
                 if (array[key] < array[i]) {
                         insertion_sort_int_swap(array, key);
                         /* 
@@ -79,11 +79,11 @@ static void insertion_sort_float_backward(float array[], unsigned int key)
 word_to_check[i] * I decided to enter the arguments type src[] and dst[] like
  * this and not *src and *dst to avoid confusion for the users
  */
-void insertion_sort_float(float array[], const unsigned int size)
+void insertion_sort_float(float array[], const unsigned int len)
 {
         unsigned int i, key;
 
-        for (i=0, key=1; key<size; i++, key++)
+        for (i=0, key=1; key<len; i++, key++)
                 if (array[key] < array[i]) {
                         insertion_sort_float_swap(array, key);
                         /* 
@@ -188,11 +188,11 @@ static void insertion_sort_str_backward(char *array[], unsigned int key)
                         insertion_sort_str_swap(array, key);
 }
 
-void insertion_sort_str(char *array[], const unsigned int size)
+void insertion_sort_str(char *array[], const unsigned int len)
 {
         unsigned int i, key;
 
-        for (i=0, key=1; key<size; i++, key++)
+        for (i=0, key=1; key<len; i++, key++)
                 if (alpha_cmp_lower(array[i], array[key])) {
                         insertion_sort_str_swap(array, key);
                         /* 
@@ -230,11 +230,11 @@ static void insertion_sort_uint_backward(unsigned int array[], unsigned int key)
  * I decided to enter the arguments type src[] and dst[] like
  * this and not *src and *dst to avoid confusion for the users
  */
-void insertion_sort_uint(unsigned int array[], const unsigned int size)
+void insertion_sort_uint(unsigned int array[], const unsigned int len)
 {
         unsigned int i, key;
 
-        for (i=0, key=1; key<size; i++, key++)
+        for (i=0, key=1; key<len; i++, key++)
                 if (array[key] < array[i]) {
                         insertion_sort_uint_swap(array, key);
                         /* 
@@ -249,8 +249,8 @@ void insertion_sort_uint(unsigned int array[], const unsigned int size)
  * Swap array[key] and array[key-1] 
  * (array[key] to array[key-1] and array[key-1] to array[key])
  */
-static void insertion_sort_long_int_swap(long int array[], 
-                                         const unsigned int key) 
+static void insertion_sort_lint_swap(long int array[], 
+                                     const unsigned int key) 
 {
         long int tmp;
        
@@ -259,31 +259,31 @@ static void insertion_sort_long_int_swap(long int array[],
         array[key-1] = tmp;
 }
 
-static void insertion_sort_long_int_backward(long int array[], 
-                                             unsigned int key)
+static void insertion_sort_lint_backward(long int array[], 
+                                         unsigned int key)
 {
         long int i = (long int) key - 1;
 
         for (; i>-1; i--, key--)
                 if (array[key] < array[i])
-                        insertion_sort_long_int_swap(array, key);
+                        insertion_sort_lint_swap(array, key);
 }
 
 /*
  * I decided to enter the arguments type src[] and dst[] like
  * this and not *src and *dst to avoid confusion for the users
  */
-void insertion_sort_long_int(long int array[], const unsigned int size)
+void insertion_sort_lint(long int array[], const unsigned int len)
 {
         unsigned int i, key;
 
-        for (i=0, key=1; key<size; i++, key++)
+        for (i=0, key=1; key<len; i++, key++)
                 if (array[key] < array[i]) {
-                        insertion_sort_long_int_swap(array, key);
+                        insertion_sort_lint_swap(array, key);
                         /* 
                          * After the previous swap the current key is 
                          * equal to i since array[key] was moved t array[i] 
                          */
-                        insertion_sort_long_int_backward(array, i);
+                        insertion_sort_lint_backward(array, i);
                 }
 }

@@ -18,11 +18,11 @@
  */
 static unsigned int get_min_int_i(const int array[], 
                                   unsigned int i, 
-                                  const unsigned int size)
+                                  const unsigned int len)
 {
         unsigned int min;
 
-        for (min=i++; i<size; i++)
+        for (min=i++; i<len; i++)
                 if (array[i] < array[min])
                         min = i;
         return min;
@@ -43,12 +43,12 @@ static void selection_sort_int_swap(int array[],
         array[src] = tmp;
 }
 
-void selection_sort_int(int array[], const unsigned int size)
+void selection_sort_int(int array[], const unsigned int len)
 {
        unsigned int i;
 
-       for (i=0; i<size-1; i++)
-               selection_sort_int_swap(array, get_min_int_i(array, i, size), i);
+       for (i=0; i<len-1; i++)
+               selection_sort_int_swap(array, get_min_int_i(array, i, len), i);
 }
 
 /*
@@ -57,11 +57,11 @@ void selection_sort_int(int array[], const unsigned int size)
  */
 static unsigned int get_min_float_i(const float array[], 
                                     unsigned int i, 
-                                    const unsigned int size)
+                                    const unsigned int len)
 {
         unsigned int min;
 
-        for (min=i++; i<size; i++)
+        for (min=i++; i<len; i++)
                 if (array[i] < array[min])
                         min = i;
         return min;
@@ -82,13 +82,13 @@ static void selection_sort_float_swap(float array[],
         array[src] = tmp;
 }
 
-void selection_sort_float(float array[], const unsigned int size)
+void selection_sort_float(float array[], const unsigned int len)
 {
        unsigned int i;
 
-       for (i=0; i<size-1; i++)
+       for (i=0; i<len-1; i++)
                selection_sort_float_swap(array, 
-                                         get_min_float_i(array, i, size), 
+                                         get_min_float_i(array, i, len), 
                                          i);
 }
 
@@ -98,11 +98,11 @@ void selection_sort_float(float array[], const unsigned int size)
  */
 static unsigned int get_min_uint_i(const unsigned int array[], 
                                    unsigned int i, 
-                                   const unsigned int size)
+                                   const unsigned int len)
 {
         unsigned int min;
 
-        for (min=i++; i<size; i++)
+        for (min=i++; i<len; i++)
                 if (array[i] < array[min])
                         min = i;
         return min;
@@ -123,12 +123,12 @@ static void selection_sort_uint_swap(unsigned int array[],
         array[src] = tmp;
 }
 
-void selection_sort_uint(unsigned int array[], const unsigned int size)
+void selection_sort_uint(unsigned int array[], const unsigned int len)
 {
        unsigned int i;
 
-       for (i=0; i<size-1; i++)
-               selection_sort_uint_swap(array, get_min_uint_i(array, i, size), i);
+       for (i=0; i<len-1; i++)
+               selection_sort_uint_swap(array, get_min_uint_i(array, i, len), i);
 }
 
 /*
@@ -137,11 +137,11 @@ void selection_sort_uint(unsigned int array[], const unsigned int size)
  */
 static unsigned int get_min_long_int_i(const long int array[], 
                                        unsigned int i, 
-                                       const unsigned int size)
+                                       const unsigned int len)
 {
         unsigned int min;
 
-        for (min=i++; i<size; i++)
+        for (min=i++; i<len; i++)
                 if (array[i] < array[min])
                         min = i;
         return min;
@@ -162,13 +162,13 @@ static void selection_sort_long_int_swap(long int array[],
         array[src] = tmp;
 }
 
-void selection_sort_long_int(long int array[], const unsigned int size)
+void selection_sort_long_int(long int array[], const unsigned int len)
 {
        unsigned int i;
 
-       for (i=0; i<size-1; i++)
+       for (i=0; i<len-1; i++)
                selection_sort_long_int_swap(array, 
-                                            get_min_long_int_i(array, i, size), 
+                                            get_min_long_int_i(array, i, len), 
                                             i);
 }
 
@@ -250,11 +250,11 @@ static bool alpha_cmp_lower(const char *assumed_smaller,
  */
 static unsigned int get_min_str_i(char *const array[], 
                                   unsigned int i, 
-                                  const unsigned int size)
+                                  const unsigned int len)
 {
         unsigned int min;
 
-        for (min=i++; i<size; i++)
+        for (min=i++; i<len; i++)
                 if (alpha_cmp_lower(array[min], array[i]))
                         min = i;
         return min;
@@ -275,10 +275,10 @@ static void selection_sort_str_swap(char *array[],
         array[src] = tmp;
 }
 
-void selection_sort_str(char *array[], const unsigned int size)
+void selection_sort_str(char *array[], const unsigned int len)
 {
        unsigned int i;
 
-       for (i=0; i<size-1; i++)
-               selection_sort_str_swap(array, get_min_str_i(array, i, size), i);
+       for (i=0; i<len-1; i++)
+               selection_sort_str_swap(array, get_min_str_i(array, i, len), i);
 }
