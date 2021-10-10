@@ -237,7 +237,7 @@ static bool alpha_cmp(const char *assumed_smaller,
                                 return 0;
                 }
         }
-	return (check_len < assumed_len); 
+        return (check_len < assumed_len);
 }
 
 static void convert_to_lower(char *str)
