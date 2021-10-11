@@ -24,13 +24,19 @@ static void copy_partition_int(const int from[], unsigned int begin,
                 to[i] = from[begin];
 }
 
-static void merge_int(const int left[], const unsigned int l_len, 
-                      const int right[], const unsigned int r_len, 
-                      int array[])
+static void merge_int(int array[], const unsigned int l, 
+                      const unsigned int m, const unsigned int r)
 {
+        const unsigned int l_len = m - l + 1;
+        const unsigned int r_len = r - m;
         unsigned int il, ir, ia;
+        int right[r_len];
+        int left[l_len]; 
 
-        for (il=0, ir=0, ia=0; (il<l_len && ir<r_len) ; ia++) {
+        copy_partition_int(array, l, m, left, 0);
+        copy_partition_int(array, m+1, r, right, 0);
+        
+        for (il=0, ir=0, ia=l; (il<l_len && ir<r_len) ; ia++) {
                 if (left[il] < right[ir])
                         array[ia] = left[il++];
                 else
@@ -44,20 +50,14 @@ static void merge_int(const int left[], const unsigned int l_len,
                 copy_partition_int(left, il, l_len-1, array, ia);
 }
 
-void merge_sort_int(int array[], const unsigned int len)
+void merge_sort_int(int array[], const unsigned int l, const unsigned int r)
 {
-        const unsigned int middle = len / 2;
-        const unsigned int l_len = middle;
-        const unsigned int r_len = len - l_len;
-        int right[r_len];
-        int left[l_len]; 
+        const unsigned int m = (l + r) / 2;
 
-        if (middle) {
-                copy_partition_int(array, 0, middle-1, left, 0);
-                copy_partition_int(array, middle, len-1, right, 0);
-                merge_sort_int(left, l_len);
-                merge_sort_int(right, r_len);
-                merge_int(left, l_len, right, r_len, array);
+        if (l < r) {
+                merge_sort_int(array, l, m);
+                merge_sort_int(array, m+1, r);
+                merge_int(array, l, m, r);
         }
 }
 
@@ -73,13 +73,19 @@ static void copy_partition_float(const float from[], unsigned int begin,
                 to[i] = from[begin];
 }
 
-static void merge_float(const float left[], const unsigned int l_len, 
-                        const float right[], const unsigned int r_len, 
-                        float array[])
+static void merge_float(float array[], const unsigned int l, 
+                        const unsigned int m, const unsigned int r)
 {
+        const unsigned int l_len = m - l + 1;
+        const unsigned int r_len = r - m;
         unsigned int il, ir, ia;
+        float right[r_len];
+        float left[l_len]; 
 
-        for (il=0, ir=0, ia=0; (il<l_len && ir<r_len) ; ia++) {
+        copy_partition_float(array, l, m, left, 0);
+        copy_partition_float(array, m+1, r, right, 0);
+        
+        for (il=0, ir=0, ia=l; (il<l_len && ir<r_len) ; ia++) {
                 if (left[il] < right[ir])
                         array[ia] = left[il++];
                 else
@@ -93,20 +99,14 @@ static void merge_float(const float left[], const unsigned int l_len,
                 copy_partition_float(left, il, l_len-1, array, ia);
 }
 
-void merge_sort_float(float array[], const unsigned int len)
+void merge_sort_float(float array[], const unsigned int l, const unsigned int r)
 {
-        const unsigned int middle = len / 2;
-        const unsigned int l_len = middle;
-        const unsigned int r_len = len - l_len;
-        float right[r_len];
-        float left[l_len]; 
+        const unsigned int m = (l + r) / 2;
 
-        if (middle) {
-                copy_partition_float(array, 0, middle-1, left, 0);
-                copy_partition_float(array, middle, len-1, right, 0);
-                merge_sort_float(left, l_len);
-                merge_sort_float(right, r_len);
-                merge_float(left, l_len, right, r_len, array);
+        if (l < r) {
+                merge_sort_float(array, l, m);
+                merge_sort_float(array, m+1, r);
+                merge_float(array, l, m, r);
         }
 }
 
@@ -122,13 +122,19 @@ static void copy_partition_uint(const unsigned int from[], unsigned int begin,
                 to[i] = from[begin];
 }
 
-static void merge_uint(const unsigned int left[], const unsigned int l_len, 
-                       const unsigned int right[], const unsigned int r_len, 
-                       unsigned int array[])
+static void merge_uint(unsigned int array[], const unsigned int l, 
+                       const unsigned int m, const unsigned int r)
 {
+        const unsigned int l_len = m - l + 1;
+        const unsigned int r_len = r - m;
         unsigned int il, ir, ia;
+        unsigned int right[r_len];
+        unsigned int left[l_len];
 
-        for (il=0, ir=0, ia=0; (il<l_len && ir<r_len) ; ia++) {
+        copy_partition_uint(array, l, m, left, 0);
+        copy_partition_uint(array, m+1, r, right, 0);
+        
+        for (il=0, ir=0, ia=l; (il<l_len && ir<r_len) ; ia++) {
                 if (left[il] < right[ir])
                         array[ia] = left[il++];
                 else
@@ -142,20 +148,16 @@ static void merge_uint(const unsigned int left[], const unsigned int l_len,
                 copy_partition_uint(left, il, l_len-1, array, ia);
 }
 
-void merge_sort_uint(unsigned int array[], const unsigned int len)
+void merge_sort_uint(unsigned int array[], 
+                     const unsigned int l, 
+                     const unsigned int r)
 {
-        const unsigned int middle = len / 2;
-        const unsigned int l_len = middle;
-        const unsigned int r_len = len - l_len;
-        unsigned int right[r_len];
-        unsigned int left[l_len]; 
+        const unsigned int m = (l + r) / 2;
 
-        if (middle) {
-                copy_partition_uint(array, 0, middle-1, left, 0);
-                copy_partition_uint(array, middle, len-1, right, 0);
-                merge_sort_uint(left, l_len);
-                merge_sort_uint(right, r_len);
-                merge_uint(left, l_len, right, r_len, array);
+        if (l < r) {
+                merge_sort_uint(array, l, m);
+                merge_sort_uint(array, m+1, r);
+                merge_uint(array, l, m, r);
         }
 }
 
@@ -171,13 +173,19 @@ static void copy_partition_lint(const long int from[], unsigned int begin,
                 to[i] = from[begin];
 }
 
-static void merge_lint(const long int left[], const unsigned int l_len, 
-                       const long int right[], const unsigned int r_len, 
-                       long int array[])
+static void merge_lint(long int array[], const unsigned int l, 
+                       const unsigned int m, const unsigned int r)
 {
+        const unsigned int l_len = m - l + 1;
+        const unsigned int r_len = r - m;
         unsigned int il, ir, ia;
+        long int right[r_len];
+        long int left[l_len]; 
 
-        for (il=0, ir=0, ia=0; (il<l_len && ir<r_len) ; ia++) {
+        copy_partition_lint(array, l, m, left, 0);
+        copy_partition_lint(array, m+1, r, right, 0);
+        
+        for (il=0, ir=0, ia=l; (il<l_len && ir<r_len) ; ia++) {
                 if (left[il] < right[ir])
                         array[ia] = left[il++];
                 else
@@ -191,20 +199,16 @@ static void merge_lint(const long int left[], const unsigned int l_len,
                 copy_partition_lint(left, il, l_len-1, array, ia);
 }
 
-void merge_sort_lint(long int array[], const unsigned int len)
+void merge_sort_lint(long int array[], 
+                     const unsigned int l, 
+                     const unsigned int r)
 {
-        const unsigned int middle = len / 2;
-        const unsigned int l_len = middle;
-        const unsigned int r_len = len - l_len;
-        long int right[r_len];
-        long int left[l_len]; 
+        const unsigned int m = (l + r) / 2;
 
-        if (middle) {
-                copy_partition_lint(array, 0, middle-1, left, 0);
-                copy_partition_lint(array, middle, len-1, right, 0);
-                merge_sort_lint(left, l_len);
-                merge_sort_lint(right, r_len);
-                merge_lint(left, l_len, right, r_len, array);
+        if (l < r) {
+                merge_sort_lint(array, l, m);
+                merge_sort_lint(array, m+1, r);
+                merge_lint(array, l, m, r);
         }
 }
 
@@ -292,13 +296,19 @@ static void copy_partition_str(char *const from[], unsigned int begin,
                 to[i] = from[begin];
 }
 
-static void merge_str(char *const left[], const unsigned int l_len, 
-                      char *const right[], const unsigned int r_len, 
-                      char *array[])
+static void merge_str(char *array[], const unsigned int l, 
+                      const unsigned int m, const unsigned int r)
 {
+        const unsigned int l_len = m - l + 1;
+        const unsigned int r_len = r - m;
         unsigned int il, ir, ia;
+        char *right[r_len];
+        char *left[l_len]; 
 
-        for (il=0, ir=0, ia=0; (il<l_len && ir<r_len) ; ia++) {
+        copy_partition_str(array, l, m, left, 0);
+        copy_partition_str(array, m+1, r, right, 0);
+        
+        for (il=0, ir=0, ia=l; (il<l_len && ir<r_len) ; ia++) {
                 if (alpha_cmp_lower(right[ir], left[il]))
                         array[ia] = left[il++];
                 else
@@ -312,19 +322,14 @@ static void merge_str(char *const left[], const unsigned int l_len,
                 copy_partition_str(left, il, l_len-1, array, ia);
 }
 
-void merge_sort_str(char *array[], const unsigned int len)
+void merge_sort_str(char *array[], const unsigned int l, const unsigned int r)
 {
-        const unsigned int middle = len / 2;
-        const unsigned int l_len = middle;
-        const unsigned int r_len = len - l_len;
-        char *right[r_len];
-        char *left[l_len]; 
+        const unsigned int m = (l + r) / 2;
 
-        if (middle) {
-                copy_partition_str(array, 0, middle-1, left, 0);
-                copy_partition_str(array, middle, len-1, right, 0);
-                merge_sort_str(left, l_len);
-                merge_sort_str(right, r_len);
-                merge_str(left, l_len, right, r_len, array);
+        if (l < r) {
+                merge_sort_str(array, l, m);
+                merge_sort_str(array, m+1, r);
+                merge_str(array, l, m, r);
         }
 }
+
